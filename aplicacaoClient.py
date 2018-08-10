@@ -70,7 +70,7 @@ def main():
     # Atualiza dados da transmissao
     txSize = com.tx.getStatus()
    
-
+'''
     # Faz a recepcao dos dados
     print ("Recebendo dados .... ")
     bytesSeremLidos=com.rx.getBufferLen()
@@ -83,18 +83,19 @@ def main():
     
     print (rxBuffer)
     print(len(rxBuffer))
-    
+'''    
 
     # Encerra comunicacao
     print("-------------------------")
     print("Comunicacao encerrada")
     print("-------------------------")
     com.disable()
+    '''
     rxBuff = io.BytesIO(rxBuffer)
     img = Image.open(rxBuff)
     draw = ImageDraw.Draw(img)
     img.save('SalvarArquivo/ImagemEnviadaFinal.jpg')
-
+'''
     #so roda o main quando for executado do terminal ... se for chamado dentro de outro modulo nao roda
 if __name__ == "__main__":
     main()
