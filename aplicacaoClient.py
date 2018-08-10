@@ -2,11 +2,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #####################################################
-# Camada Física da Computação
+# Camada Fisica da Computacao
 #Carareto
 #17/02/2018
-#  Aplicação
+
 ####################################################
+
 
 print("comecou")
 
@@ -16,15 +17,15 @@ from PIL import Image,ImageDraw
 import io,os
 
 
-# voce deverá descomentar e configurar a porta com através da qual ira fazer a
-# comunicaçao
+# voce devera descomentar e configurar a porta com atraves da qual ira fazer a
+# comunicacao
 # Serial Com Port
 #   para saber a sua porta, execute no terminal :
 #   python -m serial.tools.list_ports
 # se estiver usando windows, o gerenciador de dispositivos informa a porta
 
-serialName = "/dev/ttyACM1"           # Ubuntu (variacao de)
-#serialName = "/dev/tty.usbmodem1411" # Mac    (variacao de)
+#serialName = "/dev/ttyACM1"           # Ubuntu (variacao de)
+serialName = "/dev/cu.usbmodem1421" # Mac    (variacao de)
 #serialName = "COM5"                  # Windows(variacao de)
 
 
@@ -46,8 +47,8 @@ def main():
     # Ativa comunicacao
     com.enable()
 
-    #verificar que a comunicação foi aberta
-    print("comunicação aberta")
+    #verificar que a comunicacao foi aberta
+    print("comunicacao aberta")
 
 
     # a seguir ha um exemplo de dados sendo carregado para transmissao
@@ -66,11 +67,11 @@ def main():
     com.sendData(txBuffer)
 
         
-    # Atualiza dados da transmissão
+    # Atualiza dados da transmissao
     txSize = com.tx.getStatus()
    
 
-    # Faz a recepção dos dados
+    # Faz a recepcao dos dados
     print ("Recebendo dados .... ")
     bytesSeremLidos=com.rx.getBufferLen()
   
@@ -84,15 +85,15 @@ def main():
     print(len(rxBuffer))
     
 
-    # Encerra comunicação
+    # Encerra comunicacao
     print("-------------------------")
-    print("Comunicação encerrada")
+    print("Comunicacao encerrada")
     print("-------------------------")
     com.disable()
     rxBuff = io.BytesIO(rxBuffer)
     img = Image.open(rxBuff)
     draw = ImageDraw.Draw(img)
-    img.save('/home/francisco/Documentos/Insper /Semestre4/Camada Física da Computação/Aula01/SalvarArquivo/ImagemEnviadaFinal.jpg')
+    img.save('SalvarArquivo/ImagemEnviadaFinal.jpg')
 
     #so roda o main quando for executado do terminal ... se for chamado dentro de outro modulo nao roda
 if __name__ == "__main__":
