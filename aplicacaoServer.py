@@ -8,6 +8,15 @@
 #  Aplicacao
 ####################################################
 
+def fromByteToInt(bytes):
+    result=0
+
+    for b in bytes:
+        result=result*256+int(b)
+
+    return result
+
+
 print("comecou")
 
 from enlace import *
@@ -19,12 +28,12 @@ import io,os
 # voce deveradescomentar e configurar a porta com atraves da qual ira fazer a
 # comunicacao
 # Serial Com Port
-#   para saber a sua porta, execute no terminal :
+#  para saber a sua porta, execute no terminal :
 #   python -m serial.tools.list_ports
 # se estiver usando windows, o gerenciador de dispositivos informa a porta
 
-#serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
-serialName = "/dev/tty.usbmodem1421" # Mac    (variacao de)
+serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
+#serialName = "/dev/tty.usbmodem1421" # Mac    (variacao de)
 #serialName = "COM5"                  # Windows(variacao de)
 
 
@@ -59,8 +68,13 @@ def main():
 
 
     txBuffer = imgByteArr
+    txLen2 = 20
     '''
-    txLen    = 4572 #len(txBuffer)
+    txLen2, nRx2 = com.getData(5)
+    print(txLen2)
+    txLen = fromByteToInt(txLen2)
+
+
     '''
     print(txLen)
 
@@ -95,8 +109,8 @@ def main():
     rxBuff = io.BytesIO(rxBuffer)
     img = Image.open(rxBuff)
     draw = ImageDraw.Draw(img)
-    img.save('/home/francisco/Documentos/Insper /Semestre4/Camada Fisica da Computacao/Aula01/SalvarArquivo/ImagemEnviadaFinal.jpg')
-
+    img.show()
+    img.save('/home/francisco/Documentos/Insper /Semestre4/Camada Física da Computação/Projeto02/SalvarArquivo/ImagemEnviadaFinal.jpg')
     #so roda o main quando for executado do terminal ... se for chamado dentro de outro modulo nao roda
 if __name__ == "__main__":
     main()

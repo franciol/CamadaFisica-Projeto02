@@ -8,6 +8,19 @@
 
 ####################################################
 
+def int_to_bytes(val, num_bytes):
+    return [(val & (0xff << pos*8)) >> pos*8 for pos in range(num_bytes)]
+
+
+def int_to_byte(values, length):
+    result = []
+    for i in range(0,length):
+        result.append(values >> (i*8)& 0xff)
+
+    result.reverse()
+
+    return result
+
 
 print("comecou")
 
@@ -24,7 +37,7 @@ import io,os
 #   python -m serial.tools.list_ports
 # se estiver usando windows, o gerenciador de dispositivos informa a porta
 
-serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
+serialName = "/dev/ttyACM1"           # Ubuntu (variacao de)
 #serialName = "/dev/cu.usbmodem1421" # Mac    (variacao de)
 #serialName = "COM5"                  # Windows(variacao de)
 
@@ -36,7 +49,7 @@ print("porta COM aberta com sucesso")
 
 def main():
 
-    img = Image.open('circuit.jpg', mode='r')
+    img = Image.open('dragon.jpg', mode='r')
 
     imgByteArr = io.BytesIO()
     img.save(imgByteArr, format='JPEG')
@@ -58,12 +71,20 @@ def main():
 
 
 
+    txLen    = len(imgByteArr)
+    infoArray = int_to_byte(txLen, 5)
+    print(len(infoArray))
+
     txBuffer = imgByteArr
-    txLen    = len(txBuffer)
     print(txLen)
+    print(bytes(infoArray))
 
     # Transmite dado
     print("tentado transmitir .... {} bytes".format(txLen))
+    com.sendData(bytes(infoArray))
+
+    time.sleep(5)
+    print("Acordou")
     com.sendData(txBuffer)
 
 
