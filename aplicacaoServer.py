@@ -32,8 +32,8 @@ import io,os
 #   python -m serial.tools.list_ports
 # se estiver usando windows, o gerenciador de dispositivos informa a porta
 
-serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
-#serialName = "/dev/tty.usbmodem1421" # Mac    (variacao de)
+#serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
+serialName = "/dev/cu.usbmodem1411" # Mac    (variacao de)
 #serialName = "COM5"                  # Windows(variacao de)
 
 
@@ -110,7 +110,7 @@ def main():
     img = Image.open(rxBuff)
     draw = ImageDraw.Draw(img)
     img.show()
-    img.save('/home/francisco/Documentos/Insper /Semestre4/Camada Física da Computação/Projeto02/SalvarArquivo/ImagemEnviadaFinal.jpg')
+    img.save('SalvarArquivo/ImagemEnviadaFinal.jpg')
     #so roda o main quando for executado do terminal ... se for chamado dentro de outro modulo nao roda
 if __name__ == "__main__":
     main()

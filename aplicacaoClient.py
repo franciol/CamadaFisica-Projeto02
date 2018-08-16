@@ -37,8 +37,8 @@ import io,os
 #   python -m serial.tools.list_ports
 # se estiver usando windows, o gerenciador de dispositivos informa a porta
 
-serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
-#serialName = "/dev/cu.usbmodem1421" # Mac    (variacao de)
+#serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
+serialName = "/dev/cu.usbmodem1421" # Mac    (variacao de)
 #serialName = "COM5"                  # Windows(variacao de)
 
 
@@ -81,6 +81,7 @@ def main():
 
     # Transmite dado
     print("tentado transmitir .... {} bytes".format(txLen))
+    startTx = time.time()
     com.sendData(bytes(infoArray))
 
     time.sleep(5)
@@ -97,6 +98,9 @@ def main():
     print("Comunicacao encerrada")
     print("-------------------------")
     com.disable()
+    endTx = time.time()
+
+    print("\n\n\nTransmitido em " + (endTx-startTx) + " segundos. \n\n\nTamanho do arquivo: " + txLen + "bytes (" + (txLen/1048576) + " MB).\n\n\n")
 
     #so roda o main quando for executado do terminal ... se for chamado dentro de outro modulo nao roda
 if __name__ == "__main__":
