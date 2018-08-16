@@ -37,7 +37,7 @@ import io,os
 #   python -m serial.tools.list_ports
 # se estiver usando windows, o gerenciador de dispositivos informa a porta
 
-serialName = "/dev/ttyACM1"           # Ubuntu (variacao de)
+serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
 #serialName = "/dev/cu.usbmodem1421" # Mac    (variacao de)
 #serialName = "COM5"                  # Windows(variacao de)
 
@@ -49,7 +49,7 @@ print("porta COM aberta com sucesso")
 
 def main():
 
-    img = Image.open('dragon.jpg', mode='r')
+    img = Image.open('circuit.jpg', mode='r')
 
     imgByteArr = io.BytesIO()
     img.save(imgByteArr, format='JPEG')
