@@ -89,10 +89,15 @@ def main():
 
     # Faz a recepcao dos dados
     print ("Recebendo dados .... ")
+    
+    
+    startRx = time.time()
     bytesSeremLidos=com.rx.getBufferLen()
 
 
     rxBuffer, nRx = com.getData(txLen)
+    estRx = (len(rxBuffer)/550)-5
+    print (estRx, " segundo(s) restantes (", (estRx/60), " minuto(s))")
 
     # log
     print ("Lido              {} bytes ".format(nRx))
@@ -106,6 +111,8 @@ def main():
     print("Comunicacao encerrada")
     print("-------------------------")
     com.disable()
+    endRx = time.time()
+    print("\n\n\nRecebido em ", (endRx-startRx)," segundo(s). (",((endRx-startRx)/60),"minuto(s)) \n\n\nTamanho do arquivo recebido: ",len(rxBuffer), "bytes (", (len(rxBuffer)/1048576), " MB).\n\n\n")
     rxBuff = io.BytesIO(rxBuffer)
     img = Image.open(rxBuff)
     draw = ImageDraw.Draw(img)

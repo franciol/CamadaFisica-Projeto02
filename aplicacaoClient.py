@@ -28,6 +28,8 @@ from enlace import *
 import time
 from PIL import Image,ImageDraw
 import io,os
+import tkinter as tk
+import tkinter.filedialog as fdlg
 
 
 # voce devera descomentar e configurar a porta com atraves da qual ira fazer a
@@ -49,7 +51,9 @@ print("porta COM aberta com sucesso")
 
 def main():
 
-    img = Image.open('circuit.jpg', mode='r')
+    
+    nasme = fdlg.askopenfilename()
+    img = Image.open(nasme, mode='r')
 
     imgByteArr = io.BytesIO()
     img.save(imgByteArr, format='JPEG')
@@ -78,13 +82,16 @@ def main():
     txBuffer = imgByteArr
     print(txLen)
     print(bytes(infoArray))
+    estTx = (txLen/550)-5
+    print (estTx, " segundo(s) restantes (", (estTx/60), " minuto(s))")
 
     # Transmite dado
     print("tentado transmitir .... {} bytes".format(txLen))
-    startTx = time.time()
+    
     com.sendData(bytes(infoArray))
 
     time.sleep(5)
+    startTx = time.time()
     print("Acordou")
     com.sendData(txBuffer)
 
@@ -100,7 +107,7 @@ def main():
     com.disable()
     endTx = time.time()
 
-    print("\n\n\nTransmitido em " + (endTx-startTx) + " segundos. \n\n\nTamanho do arquivo: " + txLen + "bytes (" + (txLen/1048576) + " MB).\n\n\n")
+    print("\n\n\nTransmitido em ", (endTx-startTx)," segundo(s). (", ((endTx-startTx)/60)," minuto(s)) \n\n\nTamanho do arquivo transmitido: ", txLen, "bytes (" , (txLen/1048576), " MB).\n\n\n")
 
     #so roda o main quando for executado do terminal ... se for chamado dentro de outro modulo nao roda
 if __name__ == "__main__":
