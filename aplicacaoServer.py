@@ -2,10 +2,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #####################################################
-# Camada Física da Computação
+# Camada Fisica da Computacao
 #Carareto
 #17/02/2018
-#  Aplicação
+#  Aplicacao
 ####################################################
 
 print("comecou")
@@ -16,15 +16,15 @@ from PIL import Image,ImageDraw
 import io,os
 
 
-# voce deverá descomentar e configurar a porta com através da qual ira fazer a
-# comunicaçao
+# voce deveradescomentar e configurar a porta com atraves da qual ira fazer a
+# comunicacao
 # Serial Com Port
 #   para saber a sua porta, execute no terminal :
 #   python -m serial.tools.list_ports
 # se estiver usando windows, o gerenciador de dispositivos informa a porta
 
-serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
-#serialName = "/dev/tty.usbmodem1411" # Mac    (variacao de)
+#serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
+serialName = "/dev/tty.usbmodem1421" # Mac    (variacao de)
 #serialName = "COM5"                  # Windows(variacao de)
 
 
@@ -35,30 +35,33 @@ print("porta COM aberta com sucesso")
 
 def main():
 
-    img = Image.open('dragon.jpg', mode='r')
+    #img = Image.open('dragon.jpg', mode='r')
 
-    imgByteArr = io.BytesIO()
-    img.save(imgByteArr, format='JPEG')
-    imgByteArr = imgByteArr.getvalue()
+    #imgByteArr = io.BytesIO()
+    #img.save(imgByteArr, format='JPEG')
+    #imgByteArr = imgByteArr.getvalue()
     # Inicializa enlace ... variavel com possui todos os metodos e propriedades do enlace, que funciona em threading
     com = enlace(serialName)
 
     # Ativa comunicacao
     com.enable()
 
-    #verificar que a comunicação foi aberta
-    print("comunicação aberta")
+    #verificar que a comunicacao foi aberta
+    print("comunicacao aberta")
 
 
     # a seguir ha um exemplo de dados sendo carregado para transmissao
     # voce pode criar o seu carregando os dados de uma imagem. Tente descobrir
+    '''
     #como fazer isso
     print ("gerando dados para transmissao :")
 
 
 
     txBuffer = imgByteArr
-    txLen    = len(txBuffer)
+    '''
+    txLen    = 4572 #len(txBuffer)
+    '''
     print(txLen)
 
     # Transmite dado
@@ -66,11 +69,11 @@ def main():
     com.sendData(txBuffer)
 
 
-    # Atualiza dados da transmissão
+    # Atualiza dados da transmissao
     txSize = com.tx.getStatus()
+    '''
 
-
-    # Faz a recepção dos dados
+    # Faz a recepcao dos dados
     print ("Recebendo dados .... ")
     bytesSeremLidos=com.rx.getBufferLen()
 
@@ -84,15 +87,15 @@ def main():
     print(len(rxBuffer))
 
 
-    # Encerra comunicação
+    # Encerra comunicacao
     print("-------------------------")
-    print("Comunicação encerrada")
+    print("Comunicacao encerrada")
     print("-------------------------")
     com.disable()
     rxBuff = io.BytesIO(rxBuffer)
     img = Image.open(rxBuff)
     draw = ImageDraw.Draw(img)
-    img.save('/home/francisco/Documentos/Insper /Semestre4/Camada Física da Computação/Aula01/SalvarArquivo/ImagemEnviadaFinal.jpg')
+    img.save('/home/francisco/Documentos/Insper /Semestre4/Camada Fisica da Computacao/Aula01/SalvarArquivo/ImagemEnviadaFinal.jpg')
 
     #so roda o main quando for executado do terminal ... se for chamado dentro de outro modulo nao roda
 if __name__ == "__main__":
